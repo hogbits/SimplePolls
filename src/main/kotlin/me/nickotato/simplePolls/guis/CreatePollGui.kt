@@ -6,6 +6,8 @@ import me.nickotato.simplePolls.managers.GuiManager
 import me.nickotato.simplePolls.managers.PollsManager
 import me.nickotato.simplePolls.utils.DurationParser
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.event.HoverEvent
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -119,13 +121,24 @@ class CreatePollGui:Gui(Component.text("§8Creating Poll"),4 * 9) {
             }
             32 -> {
                 player.closeInventory()
-                player.sendMessage("§aPoll Created")
                 PollsManager.createPoll(name, options, duration)
+                Bukkit.broadcast(Component.text("§3------------------------------"))
+                val pollLine = Component.text("§3${name} ")
+                    .append(
+                        Component.text("§b/poll")
+                            .clickEvent(ClickEvent.runCommand("/poll"))
+                            .hoverEvent(HoverEvent.showText(Component.text("§7Click to vote")))
+                    )
+                    .append(Component.text("§3 to vote!"))
+                Bukkit.broadcast(pollLine)
+                Bukkit.broadcast(Component.text("§3------------------------------"))
                 player.playSound(player.location, Sound.ENTITY_VILLAGER_YES, 1f, 1f)
             }
         }
     }
 
 }
+
+
 
 
