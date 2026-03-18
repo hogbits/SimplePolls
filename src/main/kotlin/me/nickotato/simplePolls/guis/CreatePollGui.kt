@@ -77,7 +77,7 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
         when (slot) {
             11 -> {
                 player.closeInventory()
-                PollChatListener.requestInput(player) { input ->
+                PollChatListener.requestInput(player, PollChatListener.InputType.NAME) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
                         name = input
                         updateNameItem()
@@ -87,7 +87,7 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
             }
             13 -> {
                 player.closeInventory()
-                PollChatListener.requestInput(player) { input ->
+                PollChatListener.requestInput(player, PollChatListener.InputType.OPTION) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
                         options.add(input)
                         updateOptionsItem()
@@ -97,12 +97,12 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
             }
             15 -> {
                 player.closeInventory()
-                PollChatListener.requestInput(player) { input ->
+                PollChatListener.requestInput(player, PollChatListener.InputType.DURATION) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
                         val parsed = try {
                             DurationParser.parseDuration(input)
                         } catch (e: IllegalArgumentException) {
-                            player.sendMessage("§c${e.message}")
+                            player.sendMessage("§a${e.message}")
                             return@Runnable
                         }
 

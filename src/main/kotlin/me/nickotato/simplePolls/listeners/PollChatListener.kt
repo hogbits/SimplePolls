@@ -9,9 +9,23 @@ import org.bukkit.event.Listener
 object PollChatListener: Listener {
     private val awaitingInput = mutableMapOf<Player, (String) -> Unit>()
 
-    fun requestInput(player: Player, callback: (String) -> Unit) {
+    enum class InputType {
+        NAME,
+        OPTION,
+        DURATION
+    }
+
+    private fun promptFor(type: InputType): String {
+        return when (type) {
+            InputType.NAME -> "§aEnter the poll question:"
+            InputType.OPTION -> "§aEnter a response option (one at a time):"
+            InputType.DURATION -> "§aEnter poll duration (e.g., 1d 2h 5m):"
+        }
+    }
+
+    fun requestInput(player: Player, type: InputType, callback: (String) -> Unit) {
         awaitingInput[player] = callback
-        player.sendMessage("§aPlease type your input in chat:")
+        player.sendMessage(promptFor(type))
     }
 
     @EventHandler

@@ -182,7 +182,7 @@ class ManagePollGui(private val poll: Poll) :
 
             "edit_question" -> {
                 player.closeInventory()
-                PollChatListener.requestInput(player) { input ->
+                PollChatListener.requestInput(player, PollChatListener.InputType.NAME) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
                         poll.question = input
                         player.sendMessage("§aQuestion updated.")
@@ -198,7 +198,7 @@ class ManagePollGui(private val poll: Poll) :
                 }
 
                 player.closeInventory()
-                PollChatListener.requestInput(player) { input ->
+                PollChatListener.requestInput(player, PollChatListener.InputType.OPTION) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
                         poll.options[input] = 0
                         player.sendMessage("§aOption added.")
