@@ -16,10 +16,11 @@ object PollChatListener: Listener {
     }
 
     private fun promptFor(type: InputType): String {
+        val cancelHint = " Type \"§ecancel§a\" to exit input mode."
         return when (type) {
-            InputType.NAME -> "§aEnter the poll question:"
-            InputType.OPTION -> "§aEnter a response option (one at a time):"
-            InputType.DURATION -> "§aEnter poll duration (e.g., 1d 2h 5m):"
+            InputType.NAME -> "§aEnter the poll question:$cancelHint"
+            InputType.OPTION -> "§aEnter a response option (one at a time):$cancelHint"
+            InputType.DURATION -> "§aEnter poll duration (e.g., 1d 2h 5m):$cancelHint"
         }
     }
 
@@ -35,6 +36,12 @@ object PollChatListener: Listener {
         event.isCancelled = true
 
         val inputText: String = PlainTextComponentSerializer.plainText().serialize(event.message())
+        if (inputText.trim().equals("cancel", ignoreCase = true)) {
+            awaitingInput.remove(player)
+            player.sendMessage("§cInput cancelled.")
+            return
+        }
+
         callback(inputText)
         awaitingInput.remove(player)
     }
