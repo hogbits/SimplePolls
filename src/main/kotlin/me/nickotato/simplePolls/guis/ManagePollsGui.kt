@@ -15,16 +15,16 @@ import org.bukkit.scheduler.BukkitTask
 import java.time.Duration
 import java.time.LocalDateTime
 
-class ManagePollsGui(private val viewer: Player): Gui(Component.text("§6Managing Polls"),54) {
+class ManagePollsGui(private val viewer: Player): Gui(Component.text("§8Manage Polls"),54) {
     private val page = 1
     private var updateTask: BukkitTask? = null
 
     init {
-        val create = ItemStack(Material.WRITABLE_BOOK)
+        val create = ItemStack(Material.KNOWLEDGE_BOOK)
         val createMeta = create.itemMeta
         createMeta.displayName(Component.text("§2Create Poll"))
         create.itemMeta = createMeta
-        setItem(50, create)
+        setItem(49, create)
 
         for ((index, poll) in getViewablePolls().withIndex()) {
             val pollItem = ItemStack(Material.WRITABLE_BOOK, 1)
@@ -108,7 +108,7 @@ class ManagePollsGui(private val viewer: Player): Gui(Component.text("§6Managin
         val slot = event.slot
 
         when (slot) {
-            50 -> {
+            49 -> {
                 GuiManager.open(CreatePollGui(), player)
             }
         }

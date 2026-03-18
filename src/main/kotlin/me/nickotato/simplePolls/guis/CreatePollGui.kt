@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
+class CreatePollGui:Gui(Component.text("§8Creating Poll"),4 * 9) {
     private val gui = this
     private var name = "Undefined"
     private val options = mutableListOf<String>()
@@ -40,8 +40,8 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
     private fun updateNameItem() {
         val nameItem = ItemStack(Material.NAME_TAG, 1)
         val meta = nameItem.itemMeta
-        meta.displayName(Component.text("§6Set Item Name"))
-        meta.lore(listOf(Component.text("§7Current Name: "), Component.text("§5$name")))
+        meta.displayName(Component.text("§6Poll Question"))
+        meta.lore(listOf(Component.text("§7Current Question: "), Component.text("§5$name")))
         nameItem.itemMeta = meta
         setItem(11, nameItem)
     }
@@ -62,7 +62,7 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
         meta.displayName(Component.text("§6Add Option"))
         val lore = mutableListOf<Component>()
         for (option in options) {
-            lore.add(Component.text("§5$option"))
+            lore.add(Component.text("§5● $option"))
         }
         meta.lore(lore)
         optionsItem.itemMeta = meta

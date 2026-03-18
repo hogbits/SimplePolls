@@ -16,7 +16,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 class ManagePollGui(private val poll: Poll) :
-    Gui(Component.text("§3Manage Poll"), 27) {
+    Gui(Component.text("§8Manage Poll"), 27) {
 
     private val size = 27
 
@@ -131,7 +131,7 @@ class ManagePollGui(private val poll: Poll) :
     }
 
     private fun setInfo() {
-        val item = ItemStack(Material.PAPER)
+        val item = ItemStack(Material.OAK_SIGN)
         val meta = item.itemMeta
 
         val now = LocalDateTime.now()

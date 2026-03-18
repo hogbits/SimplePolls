@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitTask
 import java.time.Duration
 import java.time.LocalDateTime
 
-class ViewPollsGui(private val viewer: Player): Gui(Component.text("§6Viewing Polls"),54) {
+class ViewPollsGui(private val viewer: Player): Gui(Component.text("§8Viewing Polls"),54) {
     private var page = 1
     private var updateTask: BukkitTask? = null
 
@@ -37,7 +37,7 @@ class ViewPollsGui(private val viewer: Player): Gui(Component.text("§6Viewing P
         val expiredMeta = expired.itemMeta
         expiredMeta.displayName(Component.text("§3View Expired Polls"))
         expired.itemMeta = expiredMeta
-        setItem(50, expired)
+        setItem(49, expired)
     }
 
     override fun open(player: Player) {
@@ -114,7 +114,7 @@ class ViewPollsGui(private val viewer: Player): Gui(Component.text("§6Viewing P
         val slot = event.slot
 
         when (slot) {
-            50 -> {
+            49 -> {
                 GuiManager.open(ViewExpiredPollsGui(), player)
                 return
             }
