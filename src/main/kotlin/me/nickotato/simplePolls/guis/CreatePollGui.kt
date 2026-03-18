@@ -4,6 +4,7 @@ import me.nickotato.simplePolls.SimplePolls
 import me.nickotato.simplePolls.listeners.PollChatListener
 import me.nickotato.simplePolls.managers.GuiManager
 import me.nickotato.simplePolls.managers.PollsManager
+import me.nickotato.simplePolls.utils.DurationParser
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -48,8 +49,9 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
     private fun updateDurationItem() {
         val durationItem = ItemStack(Material.CLOCK, 1)
         val meta = durationItem.itemMeta
-        meta.displayName(Component.text("§6Set Duration (in hours)"))
-        meta.lore(listOf(Component.text("§7Current Duration: "), Component.text("§5$duration")))
+        meta.displayName(Component.text("§6Set Duration (e.g., 1d 2h 5m)"))
+        val durationText = if (duration <= 0) "Not set" else DurationParser.formatDuration(duration)
+        meta.lore(listOf(Component.text("§7Current Duration: "), Component.text("§5$durationText")))
         durationItem.itemMeta = meta
         setItem(15, durationItem)
     }
@@ -97,9 +99,10 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
                 player.closeInventory()
                 PollChatListener.requestInput(player) { input ->
                     Bukkit.getScheduler().runTask(SimplePolls.instance, Runnable {
-                        val parsed: Long? = input.toLongOrNull()
-                        if (parsed == null || parsed <= 0) {
-                            player.sendMessage("§cInvalid number! Please enter a positive number.")
+                        val parsed = try {
+                            DurationParser.parseDuration(input)
+                        } catch (e: IllegalArgumentException) {
+                            player.sendMessage("§c${e.message}")
                             return@Runnable
                         }
 
@@ -124,3 +127,5 @@ class CreatePollGui:Gui(Component.text("§2Creating Poll"),4 * 9) {
     }
 
 }
+
+
