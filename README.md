@@ -51,5 +51,7 @@
 * Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 * For bug reporting, please report it in my discord: `https://discord.gg/aEGxqg8VbZ`
 
+By submitting a contribution (pull request, patch, or otherwise), you agree that your code will be licensed under the Mozilla Public License 2.0 (MPL 2.0) and that you have the right to submit it (i.e., it is your original work or from compatible sources).
+
 ## License
 This project is licensed under the Mozilla Public License 2.0 - see the [LICENSE](LICENSE) file for details.
